@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prezentacja o Łodzi</title>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+        }
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: white;
+        }
+
+        .presentation { position: relative; width: 100vw; height: 100vh; }
+
+        .slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: none;
+            align-items: center; justify-content: center;
+            background-size: cover; background-position: center;
+            transition: 0.5s;
+        }
+
+        .slide.active { display: flex; }
+
+        /* Nakładka przyciemniająca tło */
+        .slide::after {
+            content: ""; position: absolute;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.75); z-index: 1;
+        }
+
+        .content {
+            position: relative; z-index: 2;
+            width: 80%; max-width: 1100px;
+            display: flex; gap: 40px;
+            padding: 50px; border-radius: 30px;
+            background: rgba(20, 20, 20, 0.85);
+            border: 5px solid var(--accent);
+            box-shadow: 0 0 40px var(--accent);
+            backdrop-filter: blur(10px);
+        }
+
+        .text-box { flex: 1.5; }
+        .img-box { flex: 1; display: flex; align-items: center; justify-content: center; }
+
+        .img-box img {
+            width: 100%; border-radius: 20px;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        h2 { font-size: 3.5em; color: var(--accent); margin-top: 0; text-transform: uppercase; }
+        p { font-size: 1.5em; line-height: 1.6; color: #ddd; }
+        strong { color: white; border-bottom: 2px solid var(--accent); }
+
+        /* Strzałki boczne */
+        .arrow {
+            position: fixed; top: 50%; transform: translateY(-50%);
+            width: 90px; height: 90px;
+            background: rgba(0,0,0,0.5); border: 3px solid var(--accent);
+            color: var(--accent); font-size: 50px; cursor: pointer;
+            z-index: 10; border-radius: 50%; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .arrow:hover { background: var(--accent); color: black; box-shadow: 0 0 30px var(--accent); }
+        .arrow-left { left: 30px; }
+        .arrow-right { right: 30px; }
+        .arrow:disabled { opacity: 0; pointer-events: none; }
+
+        /* Kolory slajdów */
+        .s1 { --accent: #ffcc00; } /* Złoty */
+        .s2 { --accent: #00d4ff; } /* Błękitny */
+        .s3 { --accent: #ff4d4d; } /* Czerwony */
+        .s4 { --accent: #a29bfe; } /* Fioletowy */
+        .s5 { --accent: #55efc4; } /* Zielony */
+        .s6 { --accent: #ffffff; } /* Biały */
+
+        /* Animacje */
+        .anim-slide .content { animation: slideIn 0.8s ease-out; }
+        @keyframes slideIn { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        .anim-zoom .content { animation: zoomIn 0.7s ease-out; }
+        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <button class="arrow arrow-left" id="prevBtn" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="arrow arrow-right" id="nextBtn" onclick="moveSlide(1)">&#10095;</button>
+
+    <div class="presentation">
+        
+        <div class="slide active s1 anim-zoom" style="background-image: url('https://picsum.photos/id/122/1600/900')">
+            <div class="content">
+                <div class="text-box">
+                    <h2>Nazwa miasta</h2>
+                    <p>Nazwa <strong>Łódź</strong> wzięła się najprawdopodobniej od łodzi. Legenda mówi o Januszu, który podróżował łodzią i postanowił osiedlić się właśnie tutaj.</p>
+                    <p>Inna teoria mówi, że nazwa pochodzi od rośliny o nazwie <strong>łoza</strong> (wierzba), która kiedyś bardzo gęsto rosła nad tutejszymi rzekami.</p>
+                </div>
+                <div class="img-box">
+                    <img src="https://pl.wikipedia.org/wiki/Herb_Łodzi#/media/Plik:POL_Łódź_COA.svg.png" alt="Herb Łodzi">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide s2 anim-slide" style="background-image: url('https://picsum.photos/id/192/1600/900')">
+            <div class="content">
+                <div class="text-box">
+                    <h2>Dlaczego tutaj?</h2>
+                    <p>Łódź powstała w tym miejscu, ponieważ płynęło tu kiedyś aż <strong>18 rzek</strong>. Woda była niezbędna do pracy w wielkich fabrykach bawełny.</p>
+                    <p>Miasto otaczały też <strong>ogromne lasy</strong>, które dawały drewno na budowę i opał. To połączenie wody i drewna sprawiło, że powstało tu centrum przemysłu.</p>
+                </div>
+                <div class="img-box">
+                    <img src="https://picsum.photos/id/1040/600/400" alt="Fabryki">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide s3 anim-zoom" style="background-image: url('https://picsum.photos/id/1015/1600/900')">
+            <div class="content">
+                <div class="text-box">
+                    <h2>Prawa miejskie</h2>
+                    <p>Łódź otrzymała prawa miejskie w <strong>1423 roku</strong>. Nadał je sam król <strong>Władysław Jagiełło</strong>.</p>
+                    <p>Choć prawa są stare, Łódź przez setki lat była malutką wsią. Dopiero około 200 lat temu zaczęła się zmieniać w wielką metropolię pełną fabryk.</p>
+                </div>
+                <div class="img-box">
+                    <img src="https://picsum.photos/id/1018/600/400" alt="Historia">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide s4 anim-slide" style="background-image: url('https://picsum.photos/id/1016/1600/900')">
+            <div class="content">
+                <div class="text-box">
+                    <h2>Funkcje miasta</h2>
+                    <p>Kiedyś Łódź była tylko <strong>miastem fabryk</strong>. Prawie każdy pracował przy produkcji tkanin.</p>
+                    <p>Dziś to centrum <strong>nauki, kultury i filmu</strong>. Mamy słynną szkołę filmową i nowoczesne firmy, a dzięki położeniu w centrum Polski, Łódź jest ważnym punktem na mapie handlu.</p>
+                </div>
+                <div class="img-box">
+                    <img src="https://picsum.photos/id/1039/600/400" alt="Nowoczesność">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide s5 anim-zoom" style="background-image: url('https://picsum.photos/id/1029/1600/900')">
+            <div class="content">
+                <div class="text-box">
+                    <h2>Co zobaczyć?</h2>
+                    <p>Najsłynniejszym miejscem jest <strong>Ulica Piotrkowska</strong> – jeden z najdłuższych deptaków w Europie.</p>
+                    <p>Warto też odwiedzić <strong>Manufakturę</strong> (dawną fabrykę) oraz nowoczesne <strong>Orientarium</strong> w łódzkim ZOO, gdzie można zobaczyć słonie pod wodą.</p>
+                </div>
+                <div class="img-box">
+                    <img src="https://picsum.photos/id/1043/600/400" alt="Atrakcje">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide s6 anim-slide" style="background-image: url('https://picsum.photos/id/1041/1600/900')">
+            <div class="content" style="flex-direction: column; text-align: center;">
+                <h2>Podsumowanie</h2>
+                <p>Łódź to miasto, które ze zwykłej wsi stało się przemysłowym gigantem. Dzisiaj łączy historię <strong>czerwonej cegły</strong> z nowoczesnością.</p>
+                <h1 style="color: var(--accent); font-size: 4em; margin-top: 30px;">DZIĘKUJĘ ZA UWAGĘ!</h1>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function moveSlide(dir) {
+            slides[current].classList.remove('active');
+            current += dir;
+            slides[current].classList.add('active');
+            
+            prevBtn.disabled = (current === 0);
+            nextBtn.disabled = (current === slides.length - 1);
+
+            // Aktualizacja koloru strzałek do slajdu
+            const color = getComputedStyle(slides[current]).getPropertyValue('--accent');
+            prevBtn.style.borderColor = color; prevBtn.style.color = color;
+            nextBtn.style.borderColor = color; nextBtn.style.color = color;
+        }
+
+        // Inicjalizacja kolorów przycisku na start
+        moveSlide(0);
+    </script>
+</body>
+</html>
